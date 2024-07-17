@@ -7,14 +7,18 @@ from engine.criterion import clustering_accuracy_metrics
 
 @export_fn
 class Trainer:
-    def __init__(self, model, optimizer, args, logger:Logger):
+    def __init__(self, model, optimizer, epoch, save_path, args, logger:Logger):
         self.train_step=0
-        self.epoch=0
+        self.epoch=epoch
+        self.save_path=save_path
         self.model = model
         self.optimizer = optimizer
         self.args = args
         self.logger = logger
         self.device = args.gpu
+        
+        if os.path.isfile("{}_{}.pt".format(self.save_path, self.epoch)):
+            self.model.load_state_dict(torch.load("{}_{}.pt".format(self.save_path, self.epoch)))
 
         self.scaler = GradScaler()
         self.mixed_precision = args.__dict__.get("mixed_precision", True)
@@ -82,6 +86,9 @@ class Trainer:
 
             if self.epoch == (self.args.epochs - 1):
                 torch.save({"ground_truth": ground_truth_labels.cpu().numpy(), "clusters": cluster_labels.cpu().numpy()}, self.args.output_dir + "/outcomes")
-
+       
+        torch.save(self.model.state_dict(), "{}_{}.pt".format(self.save_path, self.epoch))
+            
         self.logger.epoch_end(self.epoch, self.args.epochs)
         self.epoch+=1
+        

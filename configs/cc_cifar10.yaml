@@ -3,7 +3,7 @@ clustering_framework: cc
 project_name: deep_clustering
 group: cifar10
 run_name: CC
-dataset: sampled_cifar10
+dataset: cifar10 #sampled_cifar10
 dataset_path: "../data/cifar10"
 
 backbone: resnet34
@@ -19,4 +19,4 @@ crop_size: 224
 batch_size: 256
 
 clusters: 10
-clusterings: 2
+clusterings: 20

@@ -30,9 +30,11 @@ def main(args, logger):
     train_steps = len(train_dataloader)*args.epochs
     optimizer = build_optimizer(model, train_steps, args)
 
-    trainer = Trainer(model, optimizer, args, logger)
+    save_path = "saved_models/my_model"
+    start_epoch = 5
+    trainer = Trainer(model, optimizer, epoch=start_epoch, save_path=save_path, args=args, logger=logger)
     
-    for ep in range(args.epochs):
+    for ep in range(start_epoch, args.epochs):
         eval = ep%args.eval_interval==0 or ep+1==args.epochs
         trainer.train_epoch(train_dataloader, val_dataloader, eval=eval)
 
