@@ -12,6 +12,8 @@ def build_dataset(clustering_framework: str, data: str, dataset_path:str, args):
             return cc.imagenet_dogs_cc(dataset_path, args.crop_size)
         elif data.lower()=="imagenet_10":
             return cc.imagenet_10_cc(dataset_path, args.crop_size)
+        elif data.lower()=="sampled_cifar10":
+            return cc.sampled_cifar10_cc(dataset_path, args.crop_size)
     elif clustering_framework.lower()=="iic" or clustering_framework.lower()=="pica":
         from data.dataset_implementations import pica
         if data.lower()=="cifar10":

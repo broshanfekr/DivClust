@@ -21,7 +21,7 @@ lr_schedule: cosine
 run_name: exp
 checkpoint_path: None
 
-NMI_target: 1.
+NMI_target: 0.8
 NMI_interval: 20
 threshold_rate: 0.99
 divclust_mbank_size: 10000

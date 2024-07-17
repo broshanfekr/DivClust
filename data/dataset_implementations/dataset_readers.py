@@ -6,6 +6,22 @@ import os
 import numpy as np
 from scipy import io as sio
 from utils.misc import export_fn
+import pickle
+
+
+def load_var(load_path):
+    file = open(load_path, 'rb')
+    variable = pickle.load(file)
+    file.close()
+    return variable
+
+
+def save_var(save_path, variable):
+    file = open(save_path, 'wb')
+    pickle.dump(variable, file)
+    print("variable saved.")
+    file.close()
+
 
 ### CIFAR10 ###
 
@@ -31,6 +47,26 @@ def get_cifar10(dataset_path, get_partition=("train", "val", "merge")):
         merged_labels = np.concatenate((train_labels, val_labels))
         return_list += [merged_data, merged_labels]
     return return_list
+
+
+@export_fn
+def get_sampled_cifar10(dataset_path, get_partition=("train", "val", "merge")):
+    file_path = os.path.join(dataset_path, "cifar10_5000samples.pckl")
+    
+    imgs, labels, X = load_var(file_path)
+    cluster_num = len(np.unique(labels))
+    labels = np.asarray(labels)
+    
+    train_data = [np.asarray(x) for x in imgs]
+    train_data = np.stack(train_data)
+    train_labels = labels
+    return_list = [train_data, train_labels]
+    return return_list
+
+
+
+
+
 
 ### CIFAR100 ###
 

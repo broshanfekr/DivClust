@@ -18,7 +18,7 @@ import traceback
 
 os.environ['WANDB_START_METHOD'] = "thread"
 os.environ['WANDB_SILENT'] = "true"
-warnings.filterwarnings("ignore", category=matplotlib.cbook.mplDeprecation)
+# warnings.filterwarnings("ignore", category=matplotlib.cbook.mplDeprecation)
 
 
 def logger_argparser(args_dict=None):
