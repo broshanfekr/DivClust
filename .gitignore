@@ -1,1 +1,4 @@
 *__pycache__/
+data_folder/
+saved_models/
+experiments/
