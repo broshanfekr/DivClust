@@ -31,7 +31,7 @@ def main(args, logger):
     optimizer = build_optimizer(model, train_steps, args)
 
     save_path = "saved_models/my_model"
-    start_epoch = 491
+    start_epoch = 723
     trainer = Trainer(model, optimizer, epoch=start_epoch, save_path=save_path, args=args, logger=logger)
     
     for ep in range(start_epoch, args.epochs):
