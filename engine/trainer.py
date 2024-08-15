@@ -88,6 +88,9 @@ class Trainer:
                 torch.save({"ground_truth": ground_truth_labels.cpu().numpy(), "clusters": cluster_labels.cpu().numpy()}, self.args.output_dir + "/outcomes")
        
         torch.save(self.model.state_dict(), "{}_{}.pt".format(self.save_path, self.epoch))
+
+        if os.path.isfile("{}_{}.pt".format(self.save_path, self.epoch-2)):
+            os.remove("{}_{}.pt".format(self.save_path, self.epoch-2))
             
         self.logger.epoch_end(self.epoch, self.args.epochs)
         self.epoch+=1

@@ -6,6 +6,8 @@ def build_dataset(clustering_framework: str, data: str, dataset_path:str, args):
         from data.dataset_implementations import cc as cc
         if data.lower()=="cifar10":
             return cc.cifar10_cc(dataset_path, args.crop_size)
+        elif data.lower()=="cifar10_test":
+            return cc.cifar10_test_cc(dataset_path, args.crop_size)
         elif data.lower()=="cifar100":
             return cc.cifar100_cc(dataset_path, args.crop_size)
         elif data.lower()=="imagenet_dogs":
