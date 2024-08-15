@@ -3,8 +3,8 @@ clustering_framework: cc
 project_name: deep_clustering
 group: cifar100
 run_name: CC
-dataset: cifar100
-dataset_path: "./data_folder/CIFAR100"
+dataset: cifar100_test
+dataset_path: "./data/CIFAR100"
 
 backbone: resnet34
 proj_dim: 128

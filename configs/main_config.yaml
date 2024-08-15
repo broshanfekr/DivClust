@@ -1,5 +1,5 @@
-dataset: cifar10
-dataset_path: "./data_folder/CIFAR10"
+dataset: cifar100
+dataset_path: "./data_folder/CIFAR100"
 classes_no: 10
 
 num_workers: 4
