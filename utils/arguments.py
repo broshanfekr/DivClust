@@ -24,7 +24,7 @@ def config_dict_from_yaml(yaml_path):
     If a preset argument is provided, it also reads from <yaml_path>/<preset>
     """
     parser = argparse.ArgumentParser(conflict_handler='resolve')
-    parser.add_argument("--preset", default='cc_cifar100', type=str, help='Used to load complementary yaml')
+    parser.add_argument("--preset", default='cc_imagenet_10', type=str, help='Used to load complementary yaml')
     parser.add_argument("--complex_arg", default=None, type=str, help='Used to modify existing arguments. Format must be <arg1_name>__<arg1_value>__<arg2_name>__<arg2_value>...')
     parser.add_argument("--bash_command", default=None, type=str, help='Used to input the command that launched the job. Read from bash script as "V="$0 $@""')
     args = parser.parse_known_args()[0]
