@@ -1,10 +1,10 @@
 
 clustering_framework: cc
 project_name: deep_clustering
-group: imagenet_10
+group: stl10
 run_name: CC
-dataset: imagenet_10
-dataset_path: "./data_folder/imagenet_10"
+dataset: stl10_test
+dataset_path: "./data/stl_10"
 
 backbone: resnet34
 proj_dim: 128
@@ -19,4 +19,4 @@ crop_size: 224
 batch_size: 256
 
 clusters: 10
-clusterings: 1
+clusterings: 20

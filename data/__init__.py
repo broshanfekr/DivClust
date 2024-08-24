@@ -8,6 +8,10 @@ def build_dataset(clustering_framework: str, data: str, dataset_path:str, args):
             return cc.cifar10_cc(dataset_path, args.crop_size)
         elif data.lower()=="cifar10_test":
             return cc.cifar10_test_cc(dataset_path, args.crop_size)
+        
+        elif data.lower()=="stl10_test":
+            return cc.stl10_test_cc(dataset_path, args.crop_size)
+
         elif data.lower()=="cifar100":
             return cc.cifar100_cc(dataset_path, args.crop_size)
         elif data.lower()=="cifar100_test":

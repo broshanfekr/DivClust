@@ -1,5 +1,5 @@
 import numpy as np
-from torchvision.datasets import CIFAR10, CIFAR100
+from torchvision.datasets import CIFAR10, CIFAR100, STL10
 from utils.misc import export_fn
 import glob
 import os
@@ -47,6 +47,34 @@ def get_cifar10(dataset_path, get_partition=("train", "val", "merge")):
         merged_labels = np.concatenate((train_labels, val_labels))
         return_list += [merged_data, merged_labels]
     return return_list
+
+
+### CIFAR20 ###
+@export_fn
+def get_stl10(dataset_path, get_partition=("train", "val", "merge")):
+    if dataset_path is None:
+        dataset_path = './datasets/STL10/'
+    if "train" in get_partition or "merge" in get_partition:
+        dtrain = STL10(dataset_path, "train", download=True)
+        train_data = dtrain.data
+        train_data = np.transpose(train_data, (0, 2, 3, 1))
+        train_labels = np.array(dtrain.targets)
+    if "val" in get_partition or "merge" in get_partition:
+        dval = STL10(dataset_path, "test", download=True)
+        val_data = dval.data
+        val_data = np.transpose(val_data, (0, 2, 3, 1))
+        val_labels = np.array(dval.labels)
+    return_list = []
+    if "train" in get_partition:
+        return_list += [train_data, train_labels]
+    if "val" in get_partition:
+        return_list += [val_data, val_labels]
+    if "merge" in get_partition:
+        merged_data = np.concatenate((train_data.data, val_data.data))
+        merged_labels = np.concatenate((train_labels, val_labels))
+        return_list += [merged_data, merged_labels]
+    return return_list
+
 
 
 @export_fn

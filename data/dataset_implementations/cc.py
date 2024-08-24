@@ -29,6 +29,12 @@ def cifar10_test_cc(dataset_path=None, crop_size=224, *args, **kwargs):
     return train_dataset, val_dataset
 
 
+def stl10_test_cc(dataset_path=None, crop_size=224, *args, **kwargs):
+    data, labels = dataset_readers.get_stl10(dataset_path, ["val"])
+    train_dataset, val_dataset = _get_cc_datasets(data, labels, crop_size, blur=False)
+    return train_dataset, val_dataset
+
+
 def sampled_cifar10_cc(dataset_path=None, crop_size=224):
     data, labels = dataset_readers.get_sampled_cifar10(dataset_path, ["merge"])
     train_dataset, val_dataset = _get_cc_datasets(data, labels, crop_size, blur=False)
