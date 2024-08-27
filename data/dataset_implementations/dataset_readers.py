@@ -1,8 +1,10 @@
 import numpy as np
-from torchvision.datasets import CIFAR10, CIFAR100, STL10
+from torchvision.datasets import CIFAR10, CIFAR100, STL10, FashionMNIST
+from torchvision import transforms
 from utils.misc import export_fn
 import glob
 import os
+import torch
 import numpy as np
 from scipy import io as sio
 from utils.misc import export_fn
@@ -64,6 +66,53 @@ def get_stl10(dataset_path, get_partition=("train", "val", "merge")):
         val_data = dval.data
         val_data = np.transpose(val_data, (0, 2, 3, 1))
         val_labels = np.array(dval.labels)
+    return_list = []
+    if "train" in get_partition:
+        return_list += [train_data, train_labels]
+    if "val" in get_partition:
+        return_list += [val_data, val_labels]
+    if "merge" in get_partition:
+        merged_data = np.concatenate((train_data.data, val_data.data))
+        merged_labels = np.concatenate((train_labels, val_labels))
+        return_list += [merged_data, merged_labels]
+    return return_list
+
+
+@export_fn
+def get_fashion_mnist(dataset_path, get_partition=("train", "val", "merge")):
+    # transform_rgb = transforms.Compose([
+    #     transforms.ToTensor(),  # Convert the PIL image or numpy array to a tensor [C, H, W]
+    #     transforms.Lambda(lambda x: x.expand(3, -1, -1))  # Expand the single channel to 3 channels (RGB)
+    # ])
+
+    # Function to convert a single-channel grayscale image to RGB using NumPy
+    def convert_to_rgb(image):
+        return np.stack([image] * 3, axis=-1)  # Stack the grayscale image along the third axis to create an RGB image
+
+
+
+
+    if dataset_path is None:
+        dataset_path = './datasets/FashionMNIST/'
+    if "train" in get_partition or "merge" in get_partition:
+        dtrain = FashionMNIST(dataset_path, True, download=True)
+        train_data = dtrain.data
+        # train_data = np.transpose(train_data, (0, 2, 3, 1))
+        train_labels = np.array(dtrain.targets)
+    if "val" in get_partition or "merge" in get_partition:
+        dval = FashionMNIST(dataset_path, False, download=True)
+        val_data = dval.data
+
+        # Convert all images in the dataset to RGB
+        rgb_images = []
+        for i in range(len(val_data)):
+            grayscale_image = val_data[i]
+            grayscale_image = np.array(grayscale_image)  # Convert PIL image to NumPy array
+            rgb_image = convert_to_rgb(grayscale_image)  # Convert grayscale to RGB
+            rgb_images.append(rgb_image)
+
+        val_data = np.stack(rgb_images)
+        val_labels = np.array(dval.targets)
     return_list = []
     if "train" in get_partition:
         return_list += [train_data, train_labels]

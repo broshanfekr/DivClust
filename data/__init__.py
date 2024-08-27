@@ -11,6 +11,9 @@ def build_dataset(clustering_framework: str, data: str, dataset_path:str, args):
         
         elif data.lower()=="stl10_test":
             return cc.stl10_test_cc(dataset_path, args.crop_size)
+        
+        elif data.lower()=="fashionmnist_test":
+            return cc.fashion_mnist(dataset_path, args.crop_size)
 
         elif data.lower()=="cifar100":
             return cc.cifar100_cc(dataset_path, args.crop_size)

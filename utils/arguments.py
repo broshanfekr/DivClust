@@ -24,7 +24,9 @@ def config_dict_from_yaml(yaml_path):
     If a preset argument is provided, it also reads from <yaml_path>/<preset>
     """
     parser = argparse.ArgumentParser(conflict_handler='resolve')
-    parser.add_argument("--preset", default='cc_cifar100', type=str, help='Used to load complementary yaml')
+    # parser.add_argument("--preset", default='cc_stl_10', type=str, help='Used to load complementary yaml')
+    parser.add_argument("--preset", default='cc_fashion_mnist', type=str, help='Used to load complementary yaml')
+    # parser.add_argument("--preset", default='cc_cifar100', type=str, help='Used to load complementary yaml')
     # parser.add_argument("--preset", default='cc_cifar10', type=str, help='Used to load complementary yaml')
 
     parser.add_argument("--complex_arg", default=None, type=str, help='Used to modify existing arguments. Format must be <arg1_name>__<arg1_value>__<arg2_name>__<arg2_value>...')

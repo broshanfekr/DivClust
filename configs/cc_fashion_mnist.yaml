@@ -1,10 +1,10 @@
 
 clustering_framework: cc
 project_name: deep_clustering
-group: stl10
+group: fashionmnist
 run_name: CC
-dataset: stl10_test
-dataset_path: "../data/stl_10"
+dataset: fashionmnist_test
+dataset_path: "../data/fashionmnist"
 
 backbone: resnet34
 proj_dim: 128
